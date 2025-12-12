@@ -35,7 +35,8 @@ const saveButton = document.querySelector(".button--save");
 const modalCloseButton = document.querySelector(".modal__button");
 
 // открыть модалку
-saveButton.addEventListener("click", () => {
+saveButton.addEventListener("click", (e) => {
+  e.preventDefault(); // ← вот эту строку добавить
   modal.showModal();
 });
 
