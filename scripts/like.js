@@ -21,28 +21,43 @@ function setButtonText(heart, button) {
 iconButtons.forEach((iconBtn, i) => {
   const heart = likeHearts[i];
   const button = likeButtons[i];
-  iconBtn.addEventListener('click', () => toggleIsLiked(heart, button));
+  iconBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleIsLiked(heart, button);
+  });
 });
 
 likeButtons.forEach((button, i) => {
   const heart = likeHearts[i];
-  button.addEventListener('click', () => toggleIsLiked(heart, button));
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleIsLiked(heart, button);
+  });
 });
 
 // ---------- Модалка ----------
 const modal = document.querySelector("#modal");
 const saveButton = document.querySelector(".button--save");
-const modalForm = modal.querySelector(".modal__controller");
+const modalCloseButton = document.querySelector(".modal__button"); // Изменено!
 
 // открыть модалку
 saveButton.addEventListener("click", (e) => {
-  e.preventDefault(); // ← вот эту строку добавить
+  e.preventDefault();
+  e.stopPropagation();
   modal.showModal();
 });
 
-// закрыть модалку БЕЗ перезагрузки страницы
-modalForm.addEventListener("submit", (e) => {
+// закрыть модалку - обработчик на кнопке, а не на форме
+modalCloseButton.addEventListener("click", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   modal.close();
 });
 
+// Дополнительная защита - отмена submit для всех форм на странице
+document.querySelectorAll('form').forEach(form => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+});
