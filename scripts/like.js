@@ -1,52 +1,29 @@
-const likeHearts = document.querySelectorAll('.like-icon');
-const likeButtons = document.querySelectorAll('.card__like-button');
-const iconButtons = document.querySelectorAll('.card__icon-button');
+const likeIcons = document.querySelectorAll('.like-icon');
+  const iconButtons = document.querySelectorAll('.card__icon-button');
+  const likeButtons = document.querySelectorAll('.card__like-button');
 
-function toggleIsLiked(heart, button) {
-  if (!heart || !button) return;
-  heart.classList.toggle('is-liked');
-  setButtonText(heart, button);
-}
+  function toggleLike(heart, textButton) {
+    heart.classList.toggle('is-liked');
 
-function setButtonText(heart, button) {
-  const textEl = button.querySelector('.button__text');
-  if (!textEl) return;
-  setTimeout(() => {
-    textEl.textContent = heart.classList.contains('is-liked')
-        ? 'Unlike'
-        : 'Like';
-  }, 500);
-}
+    // Меняем текст кнопки после окончания анимации
+    setTimeout(() => {
+      const textSpan = textButton.querySelector('.button__text');
+      if (textSpan) {
+        textSpan.textContent = heart.classList.contains('is-liked') ? 'Unlike' : 'Like';
+      }
+    }, 400);
+  }
 
-// навешиваем события безопасно
-iconButtons.forEach((iconBtn, i) => {
-  const heart = likeHearts[i];
-  const button = likeButtons[i];
-  iconBtn.addEventListener('click', () => toggleIsLiked(heart, button));
-});
-
-likeButtons.forEach((button, i) => {
-  const heart = likeHearts[i];
-  button.addEventListener('click', () => toggleIsLiked(heart, button));
-});
-
-// ЭКСТРЕННОЕ РЕШЕНИЕ - предотвращает ВСЕ перезагрузки
-document.addEventListener('DOMContentLoaded', function() {
-  // Предотвращаем все клики по кнопкам
-  document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      return false;
+  // Клик по иконке сердца
+  iconButtons.forEach((iconBtn, index) => {
+    iconBtn.addEventListener('click', () => {
+      toggleLike(likeIcons[index], likeButtons[index]);
     });
   });
 
-  // Предотвращаем отправку форм
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      return false;
+  // Клик по текстовой кнопке Like / Unlike
+  likeButtons.forEach((textBtn, index) => {
+    textBtn.addEventListener('click', () => {
+      toggleLike(likeIcons[index], textBtn);
     });
   });
-});
