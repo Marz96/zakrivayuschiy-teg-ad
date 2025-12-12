@@ -1,10 +1,9 @@
 // ---------- Лайки ----------
-const likeHearts = document.querySelectorAll('.like-icon');
-const likeButtons = document.querySelectorAll('.card__like-button');
-const iconButtons = document.querySelectorAll('.card__icon-button');
-
-function toggleIsLiked(heart, button) {
+function toggleIsLiked(section) {
+  const heart = section.querySelector('.like-icon');
+  const button = section.querySelector('.card__like-button');
   if (!heart || !button) return;
+
   heart.classList.toggle('is-liked');
   setButtonText(heart, button);
 }
@@ -12,6 +11,7 @@ function toggleIsLiked(heart, button) {
 function setButtonText(heart, button) {
   const textEl = button.querySelector('.button__text');
   if (!textEl) return;
+
   setTimeout(() => {
     textEl.textContent = heart.classList.contains('is-liked')
       ? 'Unlike'
@@ -19,16 +19,20 @@ function setButtonText(heart, button) {
   }, 500);
 }
 
-// навешиваем события
-iconButtons.forEach((iconBtn, i) => {
-  const heart = likeHearts[i];
-  const button = likeButtons[i];
-  iconBtn.addEventListener('click', () => toggleIsLiked(heart, button));
-});
+// Делегирование — ловим клики один раз
+document.addEventListener('click', (e) => {
+  const iconBtn = e.target.closest('.card__icon-button');
+  const likeBtn = e.target.closest('.card__like-button');
 
-likeButtons.forEach((button, i) => {
-  const heart = likeHearts[i];
-  button.addEventListener('click', () => toggleIsLiked(heart, button));
+  if (iconBtn) {
+    const section = iconBtn.closest('.section');
+    toggleIsLiked(section);
+  }
+
+  if (likeBtn) {
+    const section = likeBtn.closest('.section');
+    toggleIsLiked(section);
+  }
 });
 
 
@@ -48,3 +52,4 @@ modalForm.addEventListener("submit", (e) => {
   e.preventDefault();
   modal.close();
 });
+
