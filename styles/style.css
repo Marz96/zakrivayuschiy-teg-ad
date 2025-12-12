@@ -1,0 +1,357 @@
+/* Здесь вы напишете основную часть стилей страницы.
+
+Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
+✦ like-icon — для svg-иконки анимированного сердца
+✦ card__like-button — для кнопки Like рядом с иконкой
+✦ card__icon-button — для кнопки, оборачивающей иконку
+✦ card__icon-button — для кнопки, оборачивающей иконку
+✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
+✦ button__text — для обозначения текстового элемента внутри кнопки
+
+*/
+
+.page {
+  min-inline-size: 375px;
+  min-block-size: 100dvb;
+  background-color: var(--page-background-color);
+  background-image: var(--page-background-image);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.card__img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__img-label {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.6;
+  color: var(--accent-clr, #000);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  text-shadow: 1px 0 0 var(--bg-color),
+  -1px 0 0 var(--bg-color),
+  0 1px 0 var(--bg-color),
+  0 -1px 0 var(--bg-color);
+  mix-blend-mode: hard-light;
+  right: 25px;
+  top: 25px;
+}
+
+@supports (
+  (-webkit-text-stroke: 1px var(--page-background-color, #ffffff)) or
+  (text-stroke: 1px var(--page-background-color, #ffffff))
+) {
+  .card__img-label {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--page-background-color, #ffffff);
+    text-stroke: 1px var(--page-background-color, #ffffff);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-section {
+  margin: 100px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--content-width);
+  min-height: clamp(20.4375rem, 19.285rem + 4.913vw, 23rem);
+  padding: var(--header-padding);
+  border: 2px solid var(--border-color);
+  gap: 20px;
+  background-color: var(--bg-color, #fff);
+}
+
+.header__title {
+  font-family: var(--accent-font), fantasy;
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  line-height: 1;
+  text-align: center;
+}
+
+.header__subtitle {
+  font-family: var(--accent-font), fantasy;
+  font-size: clamp(0.875rem, 0.677rem + 0.845vw, 1.438rem);
+  line-height: 1;
+  text-align: center;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--content-width);
+  min-height: clamp(20.4375rem, 19.285rem + 4.913vw, 23rem);
+  border: 2px solid var(--border-color);
+  background-color: var(--bg-color, #fff);
+}
+
+.section__image {
+  width: 100%;
+  border: 2px solid var(--border-color);
+}
+
+.section__title {
+  font-variation-settings: normal;
+  font-family: var(--main-font), sans-serif;
+  font-size: var(--title-font-size, 18px);
+  font-weight: bold;
+  padding: 4px 10px 6px;
+  border: 2px solid var(--border-color);
+  z-index: 10;
+}
+
+.text__container {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  padding: 25px;
+}
+
+.section__text {
+  font-family: var(--main-font), sans-serif;
+  font-size: var(--text-font-size, 18px);
+  font-weight: var(--main-text-weight, 400);
+  line-height: 21px;
+}
+
+.button__container {
+  padding: 0 25px 25px clamp(11.0625rem, 10.169rem + 3.811vw, 31.375rem);
+}
+
+.button__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.like-icon {
+  padding: 0;
+}
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--text-color, #000000);
+}
+
+.card__icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  inline-size: 38px;
+  block-size: 38px;
+}
+
+.card__like-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: 130px;
+  height: 38px;
+  padding: 10px 17px;
+  border: 2px solid var(--text-color, #000);
+  background: var(--page-background-color, #fff);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button_save {
+  margin-bottom: 100px;
+}
+
+.button--save {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 15px 21px 15px 19px;
+  border: 2px solid var(--text-color, #000);
+  background: var(--page-background-color, #fff);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--bg-color, #fff);
+  color: var(--button-text-color, #000);
+}
+
+.button__text {
+  align-self: center;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__button {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--accent-clr, #000);
+  background: transparent;
+  color: var(--text-color, #fff);
+  transition: box-shadow 0.3s ease;
+}
+
+.card__like-button:focus,
+.button--save:focus,
+.modal__button:focus {
+  outline: none;
+  box-shadow: 2px 2px 0 var(--accent-clr, #000);
+  transition: box-shadow 0.3s ease;
+}
+
+.card__like-button::before,
+.button--save::before,
+.modal__button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--accent-clr, #000);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+  z-index: 0;
+}
+
+.card__like-button:hover::before,
+.button--save:hover::before,
+.modal__button:hover::before {
+  transform: translateX(0);
+}
+
+.card__like-button:hover .button__text,
+.button--save:hover .button__text,
+.modal__button:hover .button__text {
+  color: var(--page-background-color, #fff);
+  transition: color 0.3s ease-in-out;
+}
+
+.button__icon {
+  block-size: 22px;
+  inline-size: 22px;
+}
+
+@media (width < 380px) {
+  .button--save {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.section__image.filter-deadside {
+  filter: sepia(70%) grayscale(60%) brightness(110%) contrast(105%);
+}
+
+.section__image.filter-oblivion {
+  filter: brightness(1.9) contrast(1.5);
+}
+
+.section__image.filter-depression {
+  filter: sepia(50%) saturate(150%) brightness(110%);
+}
+
+.section__image.filter-ghostly {
+  filter: invert(100%);
+}
+
+.section__image.filter-post-apocalyptic {
+  filter: grayscale(0.85) sepia(0.35) hue-rotate(10deg) brightness(1.2) contrast(1.4);
+}
+
+.section__image.filter-existential {
+  filter: blur(12px);
+}
+
+.section__image.filter-decay {
+  filter: hue-rotate(90deg) brightness(80%) contrast(75%);
+}
+
+.modal {
+  display: grid;
+  grid-template-areas:
+    "icon content"
+    "controller controller";
+  grid-template-columns: auto 1fr;
+  gap: 30px;
+  border: 2px solid var(--text-color, #000);
+  color: var(--text-color, #000);
+  font-family: var(--accent-font, 'PressStart2P'), fantasy;
+  line-height: 1.5;
+  text-transform: uppercase;
+  background: var(--page-background-color, #fff);
+  max-inline-size: 355px;
+  padding: 30px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal[open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 75%);
+}
+
+.modal__icon {
+  grid-area: icon;
+  align-self: center;
+  inline-size: 39px;
+  block-size: 39px;
+}
+
+.modal__text {
+  grid-area: content;
+  align-self: center;
+  justify-self: start;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal__controller {
+  grid-area: controller;
+}
+
+.modal__button {
+  inline-size: 100%;
+  height: 38px;
+  border: 2px solid var(--text-color, #000);
+  background: var(--page-background-color, #fff);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 10px 17px;
+  transition: background-color 0.3s ease;
+}
+
+.modal__button:hover {
+  background: var(--text-color, #000);
+  color: var(--page-background-color, #fff);
+}
