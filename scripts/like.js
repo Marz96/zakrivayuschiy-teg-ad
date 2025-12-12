@@ -32,7 +32,7 @@ likeButtons.forEach((button, i) => {
 // ---------- Модалка ----------
 const modal = document.querySelector("#modal");
 const saveButton = document.querySelector(".button--save");
-const modalCloseButton = document.querySelector(".modal__button");
+const modalForm = modal.querySelector(".modal__controller");
 
 // открыть модалку
 saveButton.addEventListener("click", () => {
@@ -40,7 +40,8 @@ saveButton.addEventListener("click", () => {
 });
 
 // закрыть модалку БЕЗ перезагрузки страницы
-modalCloseButton.addEventListener("click", (e) => {
-  e.preventDefault(); // ← обязательное условие!
+modalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   modal.close();
 });
+
