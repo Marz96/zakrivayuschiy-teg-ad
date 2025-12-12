@@ -18,7 +18,6 @@ function setButtonText(heart, button) {
   }, 500);
 }
 
-// навешиваем события безопасно
 iconButtons.forEach((iconBtn, i) => {
   const heart = likeHearts[i];
   const button = likeButtons[i];
@@ -30,23 +29,15 @@ likeButtons.forEach((button, i) => {
   button.addEventListener('click', () => toggleIsLiked(heart, button));
 });
 
-// ЭКСТРЕННОЕ РЕШЕНИЕ - предотвращает ВСЕ перезагрузки
-document.addEventListener('DOMContentLoaded', function() {
-  // Предотвращаем все клики по кнопкам
-  document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      return false;
-    });
-  });
+// Модалка
+const modal = document.querySelector("#modal");
+const saveButton = document.querySelector(".button--save");
+const modalCloseButton = document.querySelector(".modal__button");
 
-  // Предотвращаем отправку форм
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      return false;
-    });
-  });
+saveButton.addEventListener("click", () => {
+  modal.showModal();
+});
+
+modalCloseButton.addEventListener("click", () => {
+  modal.close();
 });
