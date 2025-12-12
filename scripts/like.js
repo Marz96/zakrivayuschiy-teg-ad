@@ -38,26 +38,22 @@ likeButtons.forEach((button, i) => {
 // ---------- Модалка ----------
 const modal = document.querySelector("#modal");
 const saveButton = document.querySelector(".button--save");
-const modalCloseButton = document.querySelector(".modal__button"); // Изменено!
+const okButton = modal.querySelector(".modal__button"); // кнопка «ОК»
 
-// открыть модалку
+// Открываем модалку по кнопке «Сохранить на память»
 saveButton.addEventListener("click", (e) => {
   e.preventDefault();
-  e.stopPropagation();
   modal.showModal();
 });
 
-// закрыть модалку - обработчик на кнопке, а не на форме
-modalCloseButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+// Закрываем модалку по кнопке «ОК» — БЕЗ перезагрузки страницы
+okButton.addEventListener("click", (e) => {
+  e.preventDefault();   // ← Эта строка убирает перезагрузку
   modal.close();
 });
 
-// Дополнительная защита - отмена submit для всех форм на странице
-document.querySelectorAll('form').forEach(form => {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  });
+// Дополнительно защищаемся от Enter в форме (на всякий случай)
+modal.addEventListener("submit", (e) => {
+  e.preventDefault();
+  modal.close();
 });
