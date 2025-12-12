@@ -13,47 +13,40 @@ function setButtonText(heart, button) {
   if (!textEl) return;
   setTimeout(() => {
     textEl.textContent = heart.classList.contains('is-liked')
-      ? 'Unlike'
-      : 'Like';
+        ? 'Unlike'
+        : 'Like';
   }, 500);
 }
 
+// навешиваем события безопасно
 iconButtons.forEach((iconBtn, i) => {
   const heart = likeHearts[i];
   const button = likeButtons[i];
-  iconBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggleIsLiked(heart, button);
-  });
+  iconBtn.addEventListener('click', () => toggleIsLiked(heart, button));
 });
 
 likeButtons.forEach((button, i) => {
   const heart = likeHearts[i];
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggleIsLiked(heart, button);
+  button.addEventListener('click', () => toggleIsLiked(heart, button));
+});
+
+// ЭКСТРЕННОЕ РЕШЕНИЕ - предотвращает ВСЕ перезагрузки
+document.addEventListener('DOMContentLoaded', function() {
+  // Предотвращаем все клики по кнопкам
+  document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return false;
+    });
   });
-});
 
-// ---------- Модалка ----------
-const modal = document.querySelector("#modal");
-const saveButton = document.querySelector(".button--save");
-const okButton = modal.querySelector(".modal__button"); // кнопка «ОК»
-
-// Открываем модалку по кнопке «Сохранить на память»
-saveButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  modal.showModal();
-});
-
-// Закрываем модалку по кнопке «ОК» — БЕЗ перезагрузки страницы
-okButton.addEventListener("click", (e) => {
-  e.preventDefault();   // ← Эта строка убирает перезагрузку
-  modal.close();
-});
-
-// Дополнительно защищаемся от Enter в форме (на всякий случай)
-modal.addEventListener("submit", (e) => {
-  e.preventDefault();
-  modal.close();
+  // Предотвращаем отправку форм
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      return false;
+    });
+  });
 });
