@@ -4,31 +4,50 @@
 ✦ like-icon — для svg-иконки анимированного сердца
 ✦ card__like-button — для кнопки Like рядом с иконкой
 ✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
 ✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
 ✦ button__text — для обозначения текстового элемента внутри кнопки
-
 */
-
-/* Основные стили страницы */
 
 .page {
   min-inline-size: 375px;
-  min-block-size: 100dvh;
+  min-block-size: 100dvb;
   background-color: var(--page-background-color);
   background-image: var(--page-background-image);
   background-size: cover;
   background-attachment: fixed;
-  font-variation-settings: "wght" 400;
 }
 
-body {
-  font-variation-settings: "wght" 400;
+.card__img-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
-.text-bold,
-.section__title {
-  font-variation-settings: "wght" 785;
+.card__img-label {
+  position: absolute;
+  z-index: 2;
+  opacity: 0.6;
+  color: var(--accent-clr, #000);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  text-shadow: 1px 0 0 var(--bg-color),
+    -1px 0 0 var(--bg-color),
+    0 1px 0 var(--bg-color),
+    0 -1px 0 var(--bg-color);
+  mix-blend-mode: hard-light;
+  right: 25px;
+  top: 25px;
+}
+
+@supports (
+  (-webkit-text-stroke: 1px var(--page-background-color, #ffffff)) or
+  (text-stroke: 1px var(--page-background-color, #ffffff))
+) {
+  .card__img-label {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--page-background-color, #ffffff);
+    text-stroke: 1px var(--page-background-color, #ffffff);
+  }
 }
 
 .header {
@@ -38,7 +57,7 @@ body {
 }
 
 .content-section {
-  margin-block: 100px;
+  margin: 100px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +71,7 @@ body {
 
 .header__title {
   font-family: var(--accent-font), fantasy;
-  font-size: clamp(3.FontSize0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
   line-height: 1;
   text-align: center;
 }
@@ -64,35 +83,75 @@ body {
   text-align: center;
 }
 
-.card__img-wrapper {
+.modal {
+  display: grid;
+  grid-template-areas:
+    "icon content"
+    "controller controller";
+  grid-template-columns: auto 1fr;
+  gap: 30px;
+  border: 2px solid var(--text-color, #000);
+  color: var(--text-color, #000);
+  font-family: var(--accent-font, 'PressStart2P'), fantasy;
+  line-height: 1.5;
+  text-transform: uppercase;
+  background: var(--page-background-color, #fff);
+  max-inline-size: 355px;
+  padding: 30px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal[open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 75%);
+}
+
+.modal__icon {
+  grid-area: icon;
+  align-self: center;
+  inline-size: 39px;
+  block-size: 39px;
+}
+
+.modal__text {
+  grid-area: content;
+  align-self: center;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal__controller {
+  grid-area: controller;
+}
+
+/* объединённое определение */
+.modal__button {
+  inline-size: 100%;
+  height: 38px;
+  padding: 10px 17px;
   position: relative;
   overflow: hidden;
-}
-
-.card__img-label {
-  position: absolute;
-  inset-inline-end: 25px;
-  inset-block-start: 25px;
-  z-index: 2;
-  opacity: 0.6;
-  color: var(--accent-clr, #000);
-  font-family: var(--accent-font), sans-serif;
+  border: 2px solid var(--accent-clr, #000);
+  background: transparent;
+  color: var(--text-color, #fff);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
   font-size: 14px;
-  line-height: normal;
-  text-shadow:
-    1px 0 0 var(--bg-color),
-    -1px 0 0 var(--bg-color),
-    0 1px 0 var(--bg-color),
-    0 -1px 0 var(--bg-color);
-  mix-blend-mode: hard-light;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-@supports ((-webkit-text-stroke: 1px var(--page-background-color, #fff)) or (text-stroke: 1px var(--page-background-color, #fff))) {
-  .card__img-label {
-    text-shadow: none;
-    -webkit-text-stroke: 1px var(--page-background-color, #fff);
-    text-stroke: 1px var(--page-background-color, #fff);
-  }
+.modal__button:hover {
+  background: var(--text-color, #000);
+  color: var(--page-background-color, #fff);
 }
 
 .sections {
@@ -117,6 +176,7 @@ body {
 }
 
 .section__title {
+  font-variation-settings: normal;
   font-family: var(--main-font), sans-serif;
   font-size: var(--title-font-size, 18px);
   font-weight: bold;
@@ -139,100 +199,45 @@ body {
   line-height: 21px;
 }
 
-.section__image.filter-deadside 
-{ 
-  filter: sepia(70%) grayscale(60%) brightness(110%) contrast(105%); 
-}
-.section__image.filter-oblivion        
-{ 
-  filter: brightness(1.9) contrast(1.5); 
-}
-.section__image.filter-depression      
-{ 
-  filter: sepia(50%) saturate(150%) brightness(110%); 
-}
-.section__image.filter-ghostly         
-{ 
-  filter: invert(100%); 
-}
-.section__image.filter-post-apocalyptic
-{ 
-  filter: grayscale(0.85) sepia(0.35) hue-rotate(10deg) brightness(1.2) contrast(1.4); 
-}
-.section__image.filter-existential     
-{ 
-  filter: blur(12px); 
-}
-.section__image.filter-decay           
-{ 
-  filter: hue-rotate(90deg) brightness(80%) contrast(75%); 
-}
-
+/* объединено два одинаковых селектора */
 .button__container {
+  padding: 0 25px 25px clamp(11.0625rem, 10.169rem + 3.811vw, 31.375rem);
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   gap: 12px;
-  padding: 0 25px 25px;
 }
 
-.modal {
-  display: grid;
-  grid-template-areas:
-    "icon content"
-    "controller controller";
-  grid-template-columns: auto 1fr;
-  gap: 30px;
-  border: 2px solid var(--text-color, #000);
-  color: var(--text-color, #000);
-  font-family: var(--accent-font), fantasy;
-  line-height: 1.5;
-  text-transform: uppercase;
-  background: var(--page-background-color, #fff);
-  max-inline-size: 355px;
-  padding: 30px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .3s ease, visibility .3s ease;
+.section__image.filter-deadside {
+  filter: sepia(70%) grayscale(60%) brightness(110%) contrast(105%);
 }
 
-.modal[open] {
-  opacity: 1;
-  visibility: visible;
+.section__image.filter-oblivion {
+  filter: brightness(1.9) contrast(1.5);
 }
 
-.modal::backdrop {
-  background: rgb(0 0 0 / .75);
+.section__image.filter-depression {
+  filter: sepia(50%) saturate(150%) brightness(110%);
 }
 
-.modal__icon {
-  grid-area: icon;
-  align-self: center;
-  width: 39px;
-  height: 39px;
+.section__image.filter-ghostly {
+  filter: invert(100%);
 }
 
-.modal__text {
-  grid-area: content;
-  align-self: center;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+.section__image.filter-post-apocalyptic {
+  filter: grayscale(0.85) sepia(0.35) hue-rotate(10deg) brightness(1.2) contrast(1.4);
 }
 
-.modal__controller {
-  grid-area: controller;
+.section__image.filter-existential {
+  filter: blur(12px);
 }
 
-.modal__button {
-  inline-size: 100%;
-  height: 38px;
-  border: 2px solid var(--text-color, #000);
-  background: var(--page-background-color, #fff);
-  font-family: var(--accent-font), sans-serif;
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
+.section__image.filter-decay {
+  filter: hue-rotate(90deg) brightness(80%) contrast(75%);
+}
+
+.like-icon {
+  padding: 0;
 }
 
 .card__icon-button {
@@ -243,13 +248,17 @@ body {
   border: 2px solid transparent;
   background: transparent;
   cursor: pointer;
-  transition: border-color .3s ease;
+  transition: border-color 0.3s ease;
   inline-size: 38px;
   block-size: 38px;
 }
 
+.card__icon-button:focus {
+  outline: none;
+}
+
 .card__icon-button:focus-visible {
-  border-color: var(--text-color, #000);
+  border-color: var(--text-color, #000000);
 }
 
 .card__like-button {
@@ -261,13 +270,13 @@ body {
   padding: 10px 17px;
   border: 2px solid var(--text-color, #000);
   background: var(--page-background-color, #fff);
-  font-family: var(--accent-font), sans-serif;
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
   font-size: 14px;
   cursor: pointer;
 }
 
 .button_save {
-  margin-block-end: 100px;
+  margin-bottom: 100px;
 }
 
 .button--save {
@@ -280,9 +289,10 @@ body {
   padding: 15px 21px 15px 19px;
   border: 2px solid var(--text-color, #000);
   background: var(--page-background-color, #fff);
-  font-family: var(--accent-font), sans-serif;
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
   font-size: 14px;
   cursor: pointer;
+  background-color: var(--bg-color, #fff);
   color: var(--button-text-color, #000);
 }
 
@@ -292,12 +302,13 @@ body {
   z-index: 1;
 }
 
+/* общие эффекты для кнопок */
 .card__like-button:focus,
 .button--save:focus,
 .modal__button:focus {
   outline: none;
   box-shadow: 2px 2px 0 var(--accent-clr, #000);
-  transition: box-shadow .3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .card__like-button::before,
@@ -308,7 +319,7 @@ body {
   inset: 0;
   background-color: var(--accent-clr, #000);
   transform: translateX(-100%);
-  transition: transform .5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
   z-index: 0;
 }
 
@@ -322,22 +333,12 @@ body {
 .button--save:hover .button__text,
 .modal__button:hover .button__text {
   color: var(--page-background-color, #fff);
-  transition: color .3s ease-in-out;
-}
-
-.button__icon,
-.modal__icon {
-  fill: currentColor;
+  transition: color 0.3s ease-in-out;
 }
 
 .button__icon {
-  width: 28px;
-  height: 28px;
-}
-
-.modal__icon {
-  width: 39px;
-  height: 39px;
+  block-size: 22px;
+  inline-size: 22px;
 }
 
 @media (width < 380px) {
