@@ -38,7 +38,7 @@ body {
 }
 
 .content-section {
-  margin: 100px 0;
+  margin-block: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,7 @@ body {
 
 .header__title {
   font-family: var(--accent-font), fantasy;
-  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  font-size: clamp(3.FontSize0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
   line-height: 1;
   text-align: center;
 }
@@ -71,27 +71,27 @@ body {
 
 .card__img-label {
   position: absolute;
+  inset-inline-end: 25px;
+  inset-block-start: 25px;
   z-index: 2;
   opacity: 0.6;
-  ;
   color: var(--accent-clr, #000);
   font-family: var(--accent-font), sans-serif;
   font-size: 14px;
   line-height: normal;
-  text-shadow: 1px 0 0 var(--bg-color),
-               -1px 0 0 var(--bg-color),
-               0 1px 0 var(--bg-color),
-               0 -1px 0 var(--bg-color);
+  text-shadow:
+    1px 0 0 var(--bg-color),
+    -1px 0 0 var(--bg-color),
+    0 1px 0 var(--bg-color),
+    0 -1px 0 var(--bg-color);
   mix-blend-mode: hard-light;
-  right: 25px;
-  top: 25px;
 }
 
-@supports ((-webkit-text-stroke: 1px var(--page-background-color,#ffffff)) or (text-stroke:1px var(--page-background-color,#ffffff))) {
+@supports ((-webkit-text-stroke: 1px var(--page-background-color, #fff)) or (text-stroke: 1px var(--page-background-color, #fff))) {
   .card__img-label {
     text-shadow: none;
-    -webkit-text-stroke: 1px var(--page-background-color, #ffffff);
-    text-stroke: 1px var(--page-background-color, #ffffff);
+    -webkit-text-stroke: 1px var(--page-background-color, #fff);
+    text-stroke: 1px var(--page-background-color, #fff);
   }
 }
 
@@ -139,14 +139,13 @@ body {
   line-height: 21px;
 }
 
-/* Фильтры для карточек */
-.section__image.filter-deadside       { filter: sepia(70%) grayscale(60%) brightness(110%) contrast(105%); }
-.section__image.filter-oblivion       { filter: brightness(1.9) contrast(1.5); }
-.section__image.filter-depression     { filter: sepia(50%) saturate(150%) brightness(110%); }
-.section__image.filter-ghostly        { filter: invert(100%); }
-.section__image.filter-post-apocalyptic { filter: grayscale(0.85) sepia(0.35) hue-rotate(10deg) brightness(1.2) contrast(1.4); }
-.section__image.filter-existential    { filter: blur(12px); }
-.section__image.filter-decay          { filter: hue-rotate(90deg) brightness(80%) contrast(75%); }
+.section__image.filter-deadside        { filter: sepia(70%) grayscale(60%) brightness(110%) contrast(105%); }
+.section__image.filter-oblivion        { filter: brightness(1.9) contrast(1.5); }
+.section__image.filter-depression      { filter: sepia(50%) saturate(150%) brightness(110%); }
+.section__image.filter-ghostly         { filter: invert(100%); }
+.section__image.filter-post-apocalyptic{ filter: grayscale(0.85) sepia(0.35) hue-rotate(10deg) brightness(1.2) contrast(1.4); }
+.section__image.filter-existential     { filter: blur(12px); }
+.section__image.filter-decay           { filter: hue-rotate(90deg) brightness(80%) contrast(75%); }
 
 .button__container {
   display: flex;
@@ -156,10 +155,11 @@ body {
   padding: 0 25px 25px;
 }
 
-/* Модальное окно */
 .modal {
   display: grid;
-  grid-template-areas: "icon content" "controller controller";
+  grid-template-areas:
+    "icon content"
+    "controller controller";
   grid-template-columns: auto 1fr;
   gap: 30px;
   border: 2px solid var(--text-color, #000);
@@ -172,7 +172,7 @@ body {
   padding: 30px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity .3s ease, visibility .3s ease;
 }
 
 .modal[open] {
@@ -181,7 +181,7 @@ body {
 }
 
 .modal::backdrop {
-  background: rgb(0 0 0 / 75%);
+  background: rgb(0 0 0 / .75);
 }
 
 .modal__icon {
@@ -214,17 +214,15 @@ body {
   cursor: pointer;
 }
 
-/* Кнопки лайков */
 .card__icon-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  ;
   padding: 0;
   border: 2px solid transparent;
   background: transparent;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: border-color .3s ease;
   inline-size: 38px;
   block-size: 38px;
 }
@@ -248,7 +246,7 @@ body {
 }
 
 .button_save {
-  margin-bottom: 100px;
+  margin-block-end: 100px;
 }
 
 .button--save {
@@ -273,13 +271,12 @@ body {
   z-index: 1;
 }
 
-/* Фокусы и ховеры кнопок (оставлен только один блок — дублей нет) */
 .card__like-button:focus,
 .button--save:focus,
 .modal__button:focus {
   outline: none;
   box-shadow: 2px 2px 0 var(--accent-clr, #000);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow .3s ease;
 }
 
 .card__like-button::before,
@@ -290,7 +287,7 @@ body {
   inset: 0;
   background-color: var(--accent-clr, #000);
   transform: translateX(-100%);
-  transition: transform 0.5s ease-in-out;
+  transition: transform .5s ease-in-out;
   z-index: 0;
 }
 
@@ -304,10 +301,9 @@ body {
 .button--save:hover .button__text,
 .modal__button:hover .button__text {
   color: var(--page-background-color, #fff);
-  transition: color 0.3s ease-in-out;
+  transition: color .3s ease-in-out;
 }
 
-/* Иконки дискеты — исправлено и надёжно */
 .button__icon,
 .modal__icon {
   fill: currentColor;
