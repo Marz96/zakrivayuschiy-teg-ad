@@ -1,92 +1,55 @@
-.like-icon .core {
-  fill: #ffffff;
-  transition: fill 0.3s linear 0.03s;
-}
+/* Опишите в этом файле все keyframes для проекта и стили анимаций иконки Like.
 
-.like-icon .main-body {
-  fill: #ffffff;
-  transition: fill 0.3s linear;
-}
+Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
+✦ theme-dark — класс тёмной темы
+✦ theme-light — класс светлой темы
+✦ like-icon — для svg-иконки анимированного сердца
+✦ card__like-button — для кнопки Like рядом с иконкой
+✦ card__icon-button — для кнопки, оборачивающей иконку
+✦ card__icon-button — для кнопки, оборачивающей иконку
+✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
+✦ button__text — для обозначения текстового элемента внутри кнопки
 
-.like-icon .contour {
-  fill: #000000;
-  transition: fill 0.1s linear;
-}
+Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
+*/
 
-.like-icon .heart {
-  transform-origin: center;
-}
+/* Анимации */
 
-.like-icon .sparks {
-  opacity: 0;
-}
-
-.like-icon:hover .core {
-  fill: #000000;
-  transition: fill 0.3s linear;
-}
-
-.like-icon:hover .main-body {
-  fill: #000000;
-  transition: fill 0.3s linear 0.05s;
-}
-
-.like-icon:active .core {
-  fill: #ff0000;
-  transition: fill 0.3s linear;
-}
-
-.like-icon:active .main-body {
-  fill: #ff0000;
-  transition: fill 0.3s linear 0.05s;
-}
-
-.like-icon.is-liked .core {
-  fill: #ff0000;
-  transition: fill 0.3s linear;
-}
-
-.like-icon.is-liked .main-body {
-  fill: #ff0000;
-  transition: fill 0.3s linear 0.05s;
-}
-
-.like-icon.is-liked .contour {
-  fill: #ff0000;
-  transition: fill 0.3s linear 0.06s;
+.theme-menu__button:disabled::before {
+  animation: arrow-animation 0.5s ease-in-out infinite alternate;
 }
 
 .like-icon.is-liked .heart {
-  animation: heart 0.3s ease-in 0.1s 1 alternate;
+  animation: scale-animation 0.3s ease-in 0.1s 1 alternate;
 }
 
 .like-icon.is-liked .sparks {
-  animation: sparks 0.3s ease-in 0.3s 1 alternate;
+  animation: sparks-animation 0.3s ease-in 0.3s 1 alternate;
 }
 
-@keyframes heart {
+@keyframes arrow-animation {
   from {
-    transform: scale(1);
+    left: -20px;
   }
   to {
-    transform: scale(1.5);
+    left: -16px;
   }
 }
 
-@keyframes sparks {
+@keyframes scale-animation {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.5;
+  }
+}
+
+@keyframes sparks-animation {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes arrow {
-  from {
-    transform: translate(0);
-  }
-  to {
-    transform: translate(4px);
   }
 }
