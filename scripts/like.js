@@ -13,8 +13,8 @@ function setButtonText(heart, button) {
   if (!textEl) return;
   setTimeout(() => {
     textEl.textContent = heart.classList.contains('is-liked')
-        ? 'Unlike'
-        : 'Like';
+      ? 'Unlike'
+      : 'Like';
   }, 500);
 }
 
@@ -29,15 +29,18 @@ likeButtons.forEach((button, i) => {
   button.addEventListener('click', () => toggleIsLiked(heart, button));
 });
 
-// Модалка
+// ---------- Модалка ----------
 const modal = document.querySelector("#modal");
 const saveButton = document.querySelector(".button--save");
 const modalCloseButton = document.querySelector(".modal__button");
 
+// открыть модалку
 saveButton.addEventListener("click", () => {
   modal.showModal();
 });
 
-modalCloseButton.addEventListener("click", () => {
+// закрыть модалку БЕЗ перезагрузки страницы
+modalCloseButton.addEventListener("click", (e) => {
+  e.preventDefault(); // ← обязательное условие!
   modal.close();
 });
