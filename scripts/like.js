@@ -39,3 +39,38 @@ function setButtonText(heart, button) {
     );
   }
 }
+
+// Ждем загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+  // Находим кнопку "Сохранить на память"
+  const saveButton = document.querySelector('.save__button');
+  // Находим диалоговое окно
+  const dialog = document.getElementById('dialog-id');
+  
+  // Если элементы найдены, добавляем обработчик
+  if (saveButton && dialog) {
+    saveButton.addEventListener('click', function(event) {
+      // Предотвращаем возможное стандартное поведение
+      event.preventDefault();
+      // Открываем модальное окно
+      dialog.showModal();
+    });
+  }
+  
+  // Можно добавить закрытие диалога по клику вне окна
+  if (dialog) {
+    dialog.addEventListener('click', function(event) {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+    
+    // Или по кнопке закрытия внутри диалога
+    const closeButton = dialog.querySelector('.dialog__close-button');
+    if (closeButton) {
+      closeButton.addEventListener('click', function() {
+        dialog.close();
+      });
+    }
+  }
+});
