@@ -1,0 +1,67 @@
+.modal {
+  display: grid;
+  grid-template-areas:
+    "icon content"
+    "controller controller";
+  grid-template-columns: auto 1fr;
+  gap: 30px;
+  border: 2px solid var(--text-color, #000);
+  color: var(--text-color, #000);
+  font-family: var(--accent-font, 'PressStart2P'), fantasy;
+  line-height: 1.5;
+  text-transform: uppercase;
+  background: var(--page-background-color, #fff);
+  max-inline-size: 355px;
+  padding: 30px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal[open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 75%);
+}
+
+.modal__icon {
+  grid-area: icon;
+  align-self: center;
+  inline-size: 39px;
+  block-size: 39px;
+}
+
+.modal__text {
+  grid-area: content;
+  align-self: center;
+  justify-self: start;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.modal__controller {
+  grid-area: controller;
+}
+
+.modal__button {
+  inline-size: 100%;
+  height: 38px;
+  border: 2px solid var(--text-color, #000);
+  background: var(--page-background-color, #fff);
+  font-family: var(--accent-font, 'PressStart2P'), sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 10px 17px;
+  transition: background-color 0.3s ease;
+}
+
+.modal__button:hover {
+  background: var(--text-color, #000);
+  color: var(--page-background-color, #fff);
+}
